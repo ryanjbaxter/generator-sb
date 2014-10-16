@@ -1,0 +1,9 @@
+---
+applications:
+- name: <%= appName %>
+  memory: <%= cfMemory %>M
+  instances: <%= cfInstances %>
+  path: target/<%= appName %>-0.0.1-SNAPSHOT.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack
+  env:
+    SPRING_PROFILES_ACTIVE : cloud

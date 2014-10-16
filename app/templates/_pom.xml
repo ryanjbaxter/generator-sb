@@ -1,0 +1,312 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId><%= packageName %></groupId>
+  <artifactId><%= appName %></artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <!-- ====================================================================== -->
+  <!-- P A R E N T -->
+  <!-- ====================================================================== -->
+  <!-- Inherit defaults from Spring Boot -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version><%= springBootVersion %></version>
+  </parent>
+  
+  <!-- ====================================================================== -->
+  <!-- P R O P E R T I E S -->
+  <!-- ====================================================================== -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <start-class><%= packageName %>.App</start-class>
+    <java.version>1.7</java.version>
+  </properties>
+
+  <!-- ====================================================================== -->
+  <!-- D E P E N D E N C I E S -->
+  <!-- ====================================================================== -->
+  <dependencies><% if(log4j) { %> 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency><% } %><% if(web) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId><% if(jetty) { %>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+      </exclusions><% } %>
+    </dependency><% } %><% if(mongodb || mongoDBService) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency><% } %><% if(amqp) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
+    </dependency><% } %><% if(amqp) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency><% } %><% if(batch) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-batch</artifactId>
+    </dependency><% } %><% if(jpa) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency><% } %><% if(rest) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency><% } %><% if(integration) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-integration</artifactId>
+    </dependency><% } %><% if(jdbc) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency><% } %><% if(mobile) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mobile</artifactId>
+    </dependency><% } %><% if(redis || redisService) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-redis</artifactId>
+    </dependency><% } %><% if(security) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency><% } %><% if(test) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency><% } %><% if(thymeleaf) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency><% } %><% if(websocket) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency><% } %><% if(actuator) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency><% } %><% if(shell) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-remote-shell</artifactId>
+    </dependency><% } %><% if(jetty) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jetty</artifactId>
+    </dependency><% } %><% if(log4j) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j</artifactId>
+    </dependency><% } %><% if(elasticSearch) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+    </dependency><% } %><% if(gemFire) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-gemfire</artifactId>
+    </dependency><% } %><% if(solr) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-solr</artifactId>
+    </dependency><% } %><% if(freeMaker) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-freemarker</artifactId>
+    </dependency><% } %><% if(groovyTemplates) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-groovy-templates</artifactId>
+    </dependency><% } %><% if(hornetq) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-hornetq</artifactId>
+    </dependency><% } %><% if(facebook) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-social-facebook</artifactId>
+    </dependency><% } %><% if(linkedin) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-social-linkedin</artifactId>
+    </dependency><% } %><% if(velocity) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-velocity</artifactId>
+    </dependency><% } %><% if(twitter) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-social-twitter</artifactId>
+    </dependency><% } %><% if(webServices) { %>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-ws</artifactId>
+    </dependency><% } %><% if(springCloud) { %>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-spring-service-connector</artifactId>
+      <version><%= springCloudVersion %></version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+      <version><%= springCloudVersion %></version>
+    </dependency><% } %><% if(rabbitMQService) { %>
+    <dependency>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version><%= rabbitMQClientVersion %></version>
+    </dependency><% } %><% if(mysqlDriver) { %>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency><% } %><% if(postgresDriver) { %>
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.0-801.jdbc4</version>
+    </dependency><% } %><% if(h2) { %>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency><% } %><% if(hsql) { %>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <scope>runtime</scope>
+    </dependency><% } %><% if(derby) { %>
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+      <version>10.11.1.1</version>
+      <scope>runtime</scope>
+    </dependency><% } %>
+  </dependencies>
+
+  <!-- ====================================================================== -->
+  <!-- P R O F I L E S -->
+  <!-- ====================================================================== -->
+  <profiles><% if(cloudMvnProfile) { %>
+    <profile>
+      <id>deploy</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.cloudfoundry</groupId>
+            <artifactId>cf-maven-plugin</artifactId>
+            <version>1.0.2</version>
+            <configuration>
+              <target><%= cfApi %></target><% if(embedCFCreds) { %>
+              <username><%= cfUserName %></username>
+              <password><%= cfPassword %></password><% } %><% if(!embedCFCreds) { %>
+              <server><%= cfServer %></server><% } %>
+              <appname><%= appName %></appname>
+              <org><%= cfOrg %></org>
+              <space><%= cfSpace %></space>
+              <buildpack>https://github.com/cloudfoundry/java-buildpack.git</buildpack>
+              <instances><%= cfInstances %></instances>
+              <memory><%= cfMemory %></memory>
+              <url><%= cfUrl %></url>
+              <services>
+                <!-- Add services you want to create and bind here -->
+              </services>
+              <env>
+                <!-- Sets the cloud profile when the app is deployed -->
+                <SPRING_PROFILES_ACTIVE>cloud</SPRING_PROFILES_ACTIVE>
+              </env>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>push</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.5</version>
+            <executions>
+              <execution>
+                <id>auto-clean</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile><% } %>
+    <profile>
+      <id>run</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.5</version>
+            <executions>
+              <execution>
+                <id>auto-clean</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <!-- ====================================================================== -->
+  <!-- B U I L D -->
+  <!-- ====================================================================== -->
+  <!-- Package as an executable jar -->
+  <build>
+    <defaultGoal>package</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

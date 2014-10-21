@@ -449,6 +449,7 @@ var SbGenerator = yeoman.generators.Base.extend({
       this.redisService = hasService('redis');
       this.rabbitMQService = hasService('rabbitmq');
 
+      this.rabbitMQClientVersion = props.rabbitMQClientVersion;
       this.mysqlDriver = props.mysqlDriver;
       this.postgresDriver = props.postgresDriver;
       var hasDB = function(db) { return props.inMemoryDB && props.inMemoryDB.indexOf(db) !== -1; }
